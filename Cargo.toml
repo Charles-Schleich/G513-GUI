@@ -1,9 +1,22 @@
 [package]
-name = "keyboardGUI"
+name = "g513_gui"
 version = "0.1.0"
 authors = ["Charles Schleich <schleich.cdaniel@gmail.com>"]
 edition = "2018"
+readme = "README.md"
+license = "MIT"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[bin]]
+name = "smaller_example"
+path = "src/smaller_example.rs"
+
+
+[profile.dev]
+opt-level = 1
+
+[features]
+debug = ["orbtk/debug"]
 
 [dependencies]
+orbtk = { git = "https://github.com/redox-os/orbtk.git", branch= "develop" }

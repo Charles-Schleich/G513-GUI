@@ -1,23 +1,21 @@
-use std::process::Command;
-use std::env;
+use orbtk::prelude::*;
+
+pub use self::main_state::*;
+pub use self::main_view::*;
+
+mod main_state;
+mod main_view;
 
 fn main() {
-    set_keyboard_colour();
-    
+    Application::from_name("G513 Keyboard")
+        .window(move |ctx| {
+            Window::create()
+                .title("G513 Keyboard")
+                .position((100.0, 100.0))
+                .size(1000.0, 700.0)
+                .resizeable(true)
+                .child(MainView::create().title("Hello OrbTk").build(ctx))
+                .build(ctx)
+        })
+        .run();
 }
-
-fn set_keyboard_colour(){
-
-    let mut keyboard = Command::new("sudo");
-    keyboard.arg("./g810-led");
-    keyboard.arg("-dv");
-    keyboard.arg("046d");
-    keyboard.arg("-dp");
-    keyboard.arg("c33c");
-    keyboard.arg("-tuk");
-    keyboard.arg("1");
-    keyboard.arg("-a");
-    keyboard.arg("FFFFFF");
-    keyboard.status().expect("process failed to execute");
-}
-
