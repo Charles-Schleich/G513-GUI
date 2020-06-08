@@ -12,29 +12,6 @@ const _HEIGHT:f64 = 500.0;
 const _WIDTH:f64 = 1000.0;
 
 
-fn generate_character_button(
-    ctx: &mut BuildContext,
-    id: Entity,
-    sight: char,
-    primary: bool,
-    column: usize,
-    row: usize,
-) -> Entity {
-    let mut button = Button::create()
-        .class("single_content")
-        .min_size(48.0, 48.0)
-        .text(sight.to_string())
-        .attach(Grid::column(column))
-        .attach(Grid::row(row));
-
-    if primary {
-        button = button.class("primary");
-    }
-
-    button.build(ctx)
-}
-
-
 impl Template for MainView {
     fn template(self, id: Entity, ctx: &mut BuildContext) -> Self {
 
@@ -56,6 +33,7 @@ impl Template for MainView {
                                                         .class("h3")
                                                         .attach(Grid::column(1))
                                                         .build(ctx));
+
 
         let botgrid = make_keyboard_layout(ctx);
 
@@ -144,12 +122,13 @@ fn make_f_keys(ctx: &mut BuildContext) -> Entity{
                                              .column(_WIDTH * 0.0405 ) //F12
                                              .build());
 
-    let esc = generate_button(ctx,"ESC".to_string(),0);
+    let esc = generate_character_button(ctx,"ESC".to_string(),0);
     fkeys = fkeys.child(esc);
     let fkey_letters  = [("F1",2),("F2",3),("F3",4),("F4",5),("F5",7),("F6",8),("F7",9),("F8",10),("F9",12),("F10",13),("F11",14),("F12",15)];
     for i in fkey_letters.iter(){
         let (key,pos) = i;
-        let fkey = generate_button(ctx,key.to_string(),*pos as usize);
+        // let fkey = generate_text(ctx,key.to_string(),*pos as usize);
+        let fkey = generate_character_button(ctx, key.to_string(),*pos as usize);
         fkeys = fkeys.child(fkey);
     }
     return fkeys.build(ctx);
@@ -223,15 +202,13 @@ fn make_row(ctx: &mut BuildContext, row_keys: Vec<(&str,i32)> ) -> Grid {
     let mut row =  Grid::create().columns(row_columns.build());
     for i in row_keys.iter(){
         let (key,pos) = i;
-        let fkey = generate_button(ctx,key.to_string(),*pos as usize);
+        let fkey = generate_character_button(ctx,key.to_string(),*pos as usize);
         row = row.child(fkey);
     }
     row
 }
 
-
-
-fn generate_button(ctx: &mut BuildContext, name: String, pos: usize) -> Entity{
+fn generate_text(ctx: &mut BuildContext, name: String, pos: usize) -> Entity {
     TextBlock::create().text(name)
                        .element("text-block")
                        .class("h4")
@@ -240,32 +217,26 @@ fn generate_button(ctx: &mut BuildContext, name: String, pos: usize) -> Entity{
 }
 
 
+fn generate_character_button(
+    ctx: &mut BuildContext,
+    key: String,
+    column: usize,
+) -> Entity {
+    let mut button = Button::create()
+        .class("single_content")
+        .min_size(48.0, 48.0)
+        .text(key.clone())
+        .on_click(move |states, _| -> bool {
+            print!("{}",key);
 
+            // state(id, states).action(Action::Character(sight));
+            true
+        })
+        .attach(Grid::column(column));
 
-// fn generate_operation_button(
-//     ctx: &mut BuildContext,
-//     id: Entity,
-//     sight: char,
-//     primary: bool,
-//     column: usize,
-//     column_span: usize,
-//     row: usize,
-// ) -> Entity {
-//     let mut button = Button::create()
-//         .class("single_content")
-//         .min_size(48.0, 48.0)
-//         .text(sight.to_string())
-//         .class("square")
-//         .on_click(move |states, _| -> bool {
-//             state(id, states).action(Action::Operator(sight));
-//             true
-//         })
-//         .attach(Grid::column(column))
-//         .attach(Grid::column_span(column_span))
-//         .attach(Grid::row(row));
-
-//     if primary {
-//         button = button.class("primary");
-//     }
-//     button.build(ctx)
-// }
+    if true {
+        button = button.class("secondary");
+        // button = button.class("primary");
+    }
+    button.build(ctx)
+}
