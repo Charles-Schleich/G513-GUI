@@ -6,8 +6,7 @@ Nowhere near finished, laggy as all hell unless you build in release mode.
 
 ## Run
 
-`cargo run --release -bin g513_gui`
-
+`cargo run --release --bin g513_gui`
 
 
 Inspired by (and using) a command line version at the following repo.
