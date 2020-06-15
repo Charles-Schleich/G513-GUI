@@ -179,28 +179,31 @@ fn make_keyboard_layout(ctx: &mut BuildContext) -> Grid{
     return bottomgrid;
 }
 
-fn make_f_keys(ctx: &mut BuildContext) -> Entity{
+fn make_f_keys(ctx: &mut BuildContext) -> Entity {
     let kw = 48.0 ; //  Standard Key width
     
+    let cols = Columns::create()
+                                .column(_WIDTH * 0.050 ).column(6.0)// ESC
+                                .column(_WIDTH * 0.0315 ).column(6.0)// ___
+                                .column(_WIDTH * 0.050 ).column(6.0)// F1
+                                .column(_WIDTH * 0.050 ).column(6.0)
+                                .column(_WIDTH * 0.050 ).column(6.0)
+                                .column(_WIDTH * 0.050 ).column(6.0)
+                                .column(_WIDTH * 0.035 ).column(6.0) // __
+                                .column(_WIDTH * 0.050 ).column(6.0)//F5
+                                .column(_WIDTH * 0.050 ).column(6.0)
+                                .column(_WIDTH * 0.050 ).column(6.0)
+                                .column(_WIDTH * 0.050 ).column(6.0)
+                                .column(_WIDTH * 0.035 ).column(6.0)
+                                .column(_WIDTH * 0.050 ).column(6.0) //F9
+                                .column(_WIDTH * 0.050 ).column(6.0)
+                                .column(_WIDTH * 0.050 ).column(6.0)
+                                .column(_WIDTH * 0.050 ).column(6.0) //F12
+                                .build();
+
+
     let mut fkeys =  Grid::create()
-                            .columns(Columns::create()
-                                             .column(_WIDTH * 0.0405 )// ESC
-                                             .column(_WIDTH * 0.0315 )// ___
-                                             .column(_WIDTH * 0.0405 )// F1
-                                             .column(_WIDTH * 0.0405 )
-                                             .column(_WIDTH * 0.0405 )
-                                             .column(_WIDTH * 0.0405 )
-                                             .column(_WIDTH * 0.035 ) // __
-                                             .column(_WIDTH * 0.0405 )//F5
-                                             .column(_WIDTH * 0.0405 )
-                                             .column(_WIDTH * 0.0405 )
-                                             .column(_WIDTH * 0.0405 )
-                                             .column(_WIDTH * 0.035 )
-                                             .column(_WIDTH * 0.0405 ) //F9
-                                             .column(_WIDTH * 0.0405 )
-                                             .column(_WIDTH * 0.0405 )
-                                             .column(_WIDTH * 0.0405 ) //F12
-                                             .build());
+                            .columns(cols);
 
     let esc = generate_character_button(ctx,"ESC".to_string(),0,kw);
     fkeys = fkeys.child(esc);
@@ -209,11 +212,12 @@ fn make_f_keys(ctx: &mut BuildContext) -> Entity{
     for i in fkey_letters.iter(){
         let (key,pos,width ) = i;
         // let fkey = generate_text(ctx,key.to_string(),*pos as usize);
-        let fkey = generate_character_button(ctx, key.to_string(),*pos as usize, *width);
+        let fkey = generate_character_button(ctx, key.to_string(),*pos as usize * 2 , *width);
         fkeys = fkeys.child(fkey);
     }
     return fkeys.build(ctx);
 }
+
 
 fn make_main_keys(ctx: &mut BuildContext) -> Entity{
     let key_w = _WIDTH * 0.0405;
@@ -232,24 +236,24 @@ fn make_main_keys(ctx: &mut BuildContext) -> Entity{
 
     // First Row
     
-    let first_row_keys: Vec<(&str,i32,f64)>  = vec![("~",0,kw) ,("1",1,kw) ,("2",2,kw) ,("3",3,kw) ,("4",4,kw) ,("5",5,kw) ,("6",6,kw) ,("7",7,kw) ,("8",8,kw) ,("9",9,kw) ,("0",10,kw) ,("-",11,kw) ,("=",12,kw) ,("BKSPC",13,96.0) ];
+    let first_row_keys: Vec<(&str,i32,f64)>  = vec![("~",0,kw) ,("1",1,kw) ,("2",2,kw) ,("3",3,kw) ,("4",4,kw) ,("5",5,kw) ,("6",6,kw) ,("7",7,kw) ,("8",8,kw) ,("9",9,kw) ,("0",10,kw) ,("-",11,kw) ,("=",12,kw) ,("BKSPC",13,115.0) ];
     let first_row= make_row(ctx, first_row_keys);
 
     // // Second Row
-    let second_row_keys: Vec<(&str,i32,f64)>  = vec![("TAB",0,66.66) ,("Q",1,kw) ,("W",2,kw) ,("E",3,kw) ,("R",4,kw) ,("T",5,kw) ,("Y",6,kw) ,("U",7,kw) ,("I",8,kw) ,("O",9,kw) ,("P",10,kw) ,("[",11,kw) ,("]",12,kw) ,("ENTER",13,66.66) ];
+    let second_row_keys: Vec<(&str,i32,f64)>  = vec![("TAB",0,66.66) ,("Q",1,kw) ,("W",2,kw) ,("E",3,kw) ,("R",4,kw) ,("T",5,kw) ,("Y",6,kw) ,("U",7,kw) ,("I",8,kw) ,("O",9,kw) ,("P",10,kw) ,("[",11,kw) ,("]",12,kw) ,("ENTER",13,70.0) ];
     let second_row= make_row(ctx, second_row_keys);
 
     // // third Row
-    let third_row_keys: Vec<(&str,i32,f64)>  = vec![("CAPS",0,80.0) ,("A",1,kw) ,("S",2,kw) ,("D",3,kw) ,("F",4,kw) ,("G",5,kw) ,("H",6,kw) ,("J",7,kw) ,("K",8,kw) ,("L",9,kw) ,(":",10,kw) ,("\"",11,kw) ,("\\",12,kw) ];
+    let third_row_keys: Vec<(&str,i32,f64)>  = vec![("CAPS",0,120.0) ,("A",1,kw) ,("S",2,kw) ,("D",3,kw) ,("F",4,kw) ,("G",5,kw) ,("H",6,kw) ,("J",7,kw) ,("K",8,kw) ,("L",9,kw) ,(":",10,kw) ,("\"",11,kw) ,("\\",12,kw)];
     let third_row= make_row(ctx, third_row_keys);
 
     // // Fourth Row
-    let fourth_row_keys: Vec<(&str,i32,f64)>  = vec![("SHIFT",0,104.0) ,("Z",1,kw) ,("X",2,kw) ,("C",3,kw) ,("V",4,kw) ,("B",5,kw) ,("N",6 ,kw) ,("M",7 ,kw) ,("<",8 ,kw) ,(">",9 ,kw) ,("?",10 ,kw) ,("SHIFT",11 ,130.67) ];
+    let fourth_row_keys: Vec<(&str,i32,f64)>  = vec![("LSHIFT",0,140.0) ,("Z",1,kw) ,("X",2,kw) ,("C",3,kw) ,("V",4,kw) ,("B",5,kw) ,("N",6 ,kw) ,("M",7 ,kw) ,("<",8 ,kw) ,(">",9 ,kw) ,("?",10 ,kw) ,("RSHIFT",11 ,130.67) ];
     let fourth_row= make_row(ctx, fourth_row_keys);
 
     // // Fifth Row
     let bk = 56.0;
-    let fifth_row_keys: Vec<(&str,i32,f64)>  = vec![("LCTRL",0,66.66) ,("WIN",1,bk) ,("ALT",2,bk) ,("SPACE",3,312.0) ,("ALTGR",4,bk) ,("FN",5,bk) ,("OPT",6 ,bk) ,("RCTRL",7 ,66.66)];
+    let fifth_row_keys: Vec<(&str,i32,f64)>  = vec![("LCTRL",0,66.66) ,("WIN",1,bk) ,("ALT",2,bk) ,("SPACE",3,270.0) ,("ALTGR",4,bk) ,("FN",5,bk) ,("OPT",6 ,bk) ,("RCTRL",7 ,66.66)];
     let fifth_row= make_row(ctx, fifth_row_keys);
 
     mainboard = mainboard.child(Container::create()
@@ -279,12 +283,12 @@ fn make_main_keys(ctx: &mut BuildContext) -> Entity{
 fn make_row(ctx: &mut BuildContext, row_keys: Vec<(&str,i32,f64)> ) -> Grid {
     let key_w = _WIDTH * 0.0405;
     let mut row_columns= Columns::create();
-    for _ in 0..row_keys.len(){ row_columns=row_columns.column(key_w); }
+    for _ in 0..row_keys.len(){ row_columns=row_columns.column("auto").column(6.0); }
 
-    let mut row =  Grid::create().columns(row_columns.build()).clip(false);
+    let mut row =  Grid::create().columns(row_columns.build());
     for i in row_keys.iter(){
         let (key,pos,width) = i;
-        let fkey = generate_character_button(ctx,key.to_string(),*pos as usize, *width);
+        let fkey = generate_character_button(ctx,key.to_string(),*pos as usize * 2, *width);
         row = row.child(fkey);
     }
     row
