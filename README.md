@@ -3,6 +3,7 @@
 Simple(ish) GUI program to change the colours and one day effects of your Logitech keyboard on Linux.
 Nowhere near finished, laggy as all hell unless you build in release mode.
 
+Can currently make all but 6 keys, white only.
 
 ## Run
 
@@ -16,6 +17,8 @@ https://github.com/MatMoul/g810-led
 Uses OrbTk
 https://github.com/redox-os/orbtk
 
+
+![Alt text](./Screen.png?raw=true "Screen")
 
 ## License
 
