@@ -6,7 +6,7 @@ pub use self::main_view::*;
 mod main_state;
 mod main_view;
 
-const WIDTH: f64 = 1000.0; 
+const WIDTH: f64 = 1300.0; 
 const HEIGHT: f64 = 700.0; 
 
 fn main() {
@@ -16,8 +16,8 @@ fn main() {
                 .title("G513 Keyboard")
                 .position((100.0, 100.0))
                 .size(WIDTH, HEIGHT)
-                .resizeable(true)
-                .child(MainView::create().title("Hello OrbTk").build(ctx))
+                .resizeable(false)
+                .child(MainView::create().title("G513 Keyboard").build(ctx))
                 .build(ctx)
         })
         .run();
